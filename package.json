@@ -1,0 +1,27 @@
+{
+  "name": "gaberyoussef-dev",
+  "description": "Astrofy is a free and open-source template for your Personal Portfolio Website built with Astro and TailwindCSS. Create in minutes a website with Blog, CV, Project Section, Store and RSS Feed.",
+  "type": "module",
+  "version": "3.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.16.6",
+    "daisyui": "^5.5.14",
+    "dayjs": "^1.11.19",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^3.4.19"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19"
+  }
+}

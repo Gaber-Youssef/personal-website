@@ -1,0 +1,103 @@
+---
+import { PERSONAL } from '../../config';
+---
+
+<section id="contact" class="relative overflow-hidden">
+  <!-- Premium gradient background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-radial from-gold/[0.08] via-gold/[0.02] to-transparent rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="section-container relative z-10">
+    <div class="max-w-3xl mx-auto text-center" data-animate>
+      
+      <!-- Availability -->
+      <div class="status-badge mx-auto mb-10">
+        <span class="status-dot"></span>
+        <span class="text-stone-light">Taking on new projects</span>
+      </div>
+
+      <!-- Photo -->
+      <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-gold/30 mx-auto mb-8 shadow-lg">
+        <img 
+          src="/gaber-headshot.jpg" 
+          alt="Gaber Youssef"
+          class="w-full h-full object-cover"
+          style="object-position: center 20%;"
+        />
+      </div>
+
+      <!-- Headline -->
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-medium text-cream mb-6 text-balance">
+        Ready to make AI work
+        <span class="block gradient-text mt-1">for your business?</span>
+      </h2>
+
+      <!-- Subheading -->
+      <p class="text-lg text-stone-light mb-10 max-w-xl mx-auto leading-relaxed">
+        Let's have an honest conversation about your goals. 
+        I'll tell you what's realistic, what it takes, and whether I'm the right fit.
+      </p>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <a 
+          href={PERSONAL.calendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary text-lg px-10 py-4 group"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span>Book a Free Call</span>
+        </a>
+        <a 
+          href={`mailto:${PERSONAL.email}`}
+          class="btn-secondary text-lg px-10 py-4"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+          <span>Send an Email</span>
+        </a>
+      </div>
+
+      <!-- Quick response note -->
+      <p class="text-sm text-stone mb-12">
+        I respond to all inquiries within 24 hours.
+      </p>
+
+      <!-- Divider -->
+      <div class="divider mb-12"></div>
+
+      <!-- Social links -->
+      <div class="flex items-center justify-center gap-8">
+        <a 
+          href={PERSONAL.linkedIn}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost group"
+          aria-label="LinkedIn"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+        <a 
+          href={PERSONAL.upwork}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost group"
+          aria-label="Upwork"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/>
+          </svg>
+          <span>Upwork</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

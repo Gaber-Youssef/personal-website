@@ -1,0 +1,74 @@
+---
+import { EXPERIENCES, CLIENTS } from '../../config';
+---
+
+<section id="results" class="relative">
+  <!-- Subtle background accent -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-carbon/20 to-transparent pointer-events-none"></div>
+  
+  <div class="section-container relative z-10">
+    
+    <!-- Section header -->
+    <div class="section-header" data-animate>
+      <span class="section-label">Track Record</span>
+      <h2 class="section-title">Results that speak for themselves.</h2>
+      <p class="section-subtitle">
+        Real outcomes from real projects. No hypotheticals — just measurable impact.
+      </p>
+    </div>
+
+    <!-- Results timeline -->
+    <div class="max-w-4xl mx-auto space-y-8">
+      {EXPERIENCES.map((exp, index) => (
+        <div 
+          class="timeline-card group"
+          data-animate
+          data-delay={String((index + 1) * 100)}
+        >
+          <div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
+            
+            <!-- Metric highlight -->
+            <div class="lg:w-40 shrink-0 text-center lg:text-left">
+              <div class="timeline-metric">{exp.metric}</div>
+              <div class="text-sm text-stone uppercase tracking-wide">{exp.metricLabel}</div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                <h3 class="text-xl font-display font-medium text-cream">
+                  {exp.outcome}
+                </h3>
+                <div class="flex items-center gap-2 text-sm text-stone">
+                  <span class="text-gold font-medium">{exp.company}</span>
+                  <span>·</span>
+                  <span>{exp.period}</span>
+                </div>
+              </div>
+              <p class="text-stone-light leading-relaxed">
+                {exp.story}
+              </p>
+              <div class="mt-3 text-sm text-stone">
+                Role: <span class="text-stone-light">{exp.role}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Client trust bar -->
+    <div class="mt-20 text-center" data-animate data-delay="500">
+      <p class="text-sm text-stone uppercase tracking-widest mb-8">
+        Trusted by teams at
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+        {CLIENTS.map((client) => (
+          <span class="client-logo">
+            {client}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

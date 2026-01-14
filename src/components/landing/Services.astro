@@ -1,0 +1,110 @@
+---
+import { SERVICES, PERSONAL } from '../../config';
+
+const colorStyles = {
+  gold: {
+    iconBg: 'from-gold/10 to-gold/5',
+    iconBorder: 'border-gold/20 group-hover:border-gold/40',
+    iconText: 'text-gold',
+    idealBg: 'bg-gold/5 border-gold/20 text-gold',
+  },
+  emerald: {
+    iconBg: 'from-emerald/10 to-emerald/5',
+    iconBorder: 'border-emerald/20 group-hover:border-emerald/40',
+    iconText: 'text-emerald',
+    idealBg: 'bg-emerald/5 border-emerald/20 text-emerald',
+  },
+  copper: {
+    iconBg: 'from-copper/10 to-copper/5',
+    iconBorder: 'border-copper/20 group-hover:border-copper/40',
+    iconText: 'text-copper',
+    idealBg: 'bg-copper/5 border-copper/20 text-copper',
+  },
+};
+
+const icons = {
+  partnership: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+  </svg>`,
+  build: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+  </svg>`,
+  audit: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+  </svg>`,
+};
+---
+
+<section id="services" class="relative">
+  <div class="section-container">
+    
+    <!-- Section header -->
+    <div class="section-header" data-animate>
+      <span class="section-label">Work Together</span>
+      <h2 class="section-title">Choose how we partner.</h2>
+      <p class="section-subtitle">
+        Every engagement includes direct access to me — no account managers, no layers. 
+        Just senior expertise focused on your success.
+      </p>
+    </div>
+
+    <!-- Services grid -->
+    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      {SERVICES.map((service, index) => {
+        const colors = colorStyles[service.color as keyof typeof colorStyles];
+        return (
+          <div 
+            class="service-card group"
+            data-color={service.color}
+            data-animate
+            data-delay={String((index + 1) * 100)}
+          >
+            <!-- Icon -->
+            <div class={`w-14 h-14 rounded-xl bg-gradient-to-br ${colors.iconBg} border ${colors.iconBorder} flex items-center justify-center mb-6 transition-colors`}>
+              <span class={colors.iconText}>
+                <Fragment set:html={icons[service.icon as keyof typeof icons]} />
+              </span>
+            </div>
+
+            <!-- Title & subtitle -->
+            <h3 class="text-xl font-display font-medium text-cream mb-1">
+              {service.title}
+            </h3>
+            <p class="text-sm text-stone mb-4">{service.subtitle}</p>
+
+            <!-- Description -->
+            <p class="text-stone-light text-sm leading-relaxed mb-6">
+              {service.description}
+            </p>
+
+            <!-- Benefits -->
+            <div class="space-y-2.5 mb-6">
+              {service.benefits.map((benefit) => (
+                <div class="flex items-start gap-3 text-sm">
+                  <svg class={`w-4 h-4 mt-0.5 ${colors.iconText}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-stone-light">{benefit}</span>
+                </div>
+              ))}
+            </div>
+
+            <!-- Ideal for -->
+            <div class="mt-auto pt-5 border-t border-carbon-light/50">
+              <div class={`inline-block px-3 py-1.5 rounded-lg text-xs border ${colors.idealBg}`}>
+                Ideal for: {service.ideal}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-12 text-center" data-animate data-delay="400">
+      <a href={PERSONAL.calendarUrl} target="_blank" rel="noopener noreferrer" class="text-gold hover:text-gold-light transition-colors text-sm">
+        Let's discuss what works for you →
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+---
+import { TESTIMONIALS } from '../../config';
+---
+
+<section id="testimonials" class="relative">
+  <!-- Subtle background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-carbon/20 to-transparent pointer-events-none"></div>
+  
+  <div class="section-container relative z-10">
+    
+    <!-- Section header -->
+    <div class="section-header" data-animate>
+      <span class="section-label">Client Words</span>
+      <h2 class="section-title">What they're saying.</h2>
+      <p class="section-subtitle">
+        Hear from leaders I've partnered with.
+      </p>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      {TESTIMONIALS.map((testimonial, index) => (
+        <div 
+          class="testimonial-card"
+          data-animate
+          data-delay={String((index + 1) * 150)}
+        >
+          <blockquote class="relative z-10">
+            <p class="text-lg text-stone-light leading-relaxed mb-6 italic">
+              "{testimonial.quote}"
+            </p>
+            <footer class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gold/20 to-copper/20 flex items-center justify-center">
+                <span class="text-gold font-display font-medium text-lg">
+                  {testimonial.author.charAt(0)}
+                </span>
+              </div>
+              <div>
+                <div class="text-cream font-medium">{testimonial.author}</div>
+                <div class="text-sm text-stone">{testimonial.company}</div>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+      ))}
+    </div>
+
+    <!-- Trust indicators -->
+    <div class="mt-20" data-animate data-delay="400">
+      <div class="max-w-3xl mx-auto bg-carbon/40 border border-carbon-light/30 rounded-2xl p-8 md:p-10">
+        <div class="grid sm:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="text-3xl font-display font-medium text-cream mb-2">100%</div>
+            <div class="text-sm text-stone">Job Success on Upwork</div>
+          </div>
+          <div>
+            <div class="text-3xl font-display font-medium text-cream mb-2">Top 1%</div>
+            <div class="text-sm text-stone">Expert-Vetted Status</div>
+          </div>
+          <div>
+            <div class="text-3xl font-display font-medium text-cream mb-2">5.0★</div>
+            <div class="text-sm text-stone">Average Client Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple process overview -->
+    <div class="mt-20 max-w-4xl mx-auto" data-animate data-delay="500">
+      <h3 class="text-center text-xl font-display font-medium text-cream mb-10">
+        Simple process. Real outcomes.
+      </h3>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-4">
+            <span class="text-gold font-display font-medium">1</span>
+          </div>
+          <h4 class="text-cream font-medium mb-2">Discovery Call</h4>
+          <p class="text-sm text-stone-light">
+            30 minutes to understand your challenge and see if we're a fit.
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-4">
+            <span class="text-gold font-display font-medium">2</span>
+          </div>
+          <h4 class="text-cream font-medium mb-2">Proposal</h4>
+          <p class="text-sm text-stone-light">
+            Clear scope, timeline, and investment — no surprises.
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-4">
+            <span class="text-gold font-display font-medium">3</span>
+          </div>
+          <h4 class="text-cream font-medium mb-2">Delivery</h4>
+          <p class="text-sm text-stone-light">
+            Transparent progress with regular check-ins until you're delighted.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

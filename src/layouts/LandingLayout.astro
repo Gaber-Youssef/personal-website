@@ -1,0 +1,84 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import { ViewTransitions } from 'astro:transitions';
+import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API } from '../config';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title = SITE_TITLE, 
+  description = SITE_DESCRIPTION,
+  image 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+    {TRANSITION_API && <ViewTransitions />}
+  </head>
+  <body class="min-h-screen">
+    <!-- Noise overlay for texture -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+    
+    <!-- Main content -->
+    <slot />
+    
+    <!-- Smooth scroll and intersection observer for animations -->
+    <script>
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all elements with data-animate attribute
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-animate]').forEach(el => {
+          observer.observe(el);
+        });
+      });
+    </script>
+    
+    <style is:global>
+      /* Animation states */
+      [data-animate] {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
+                    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      [data-animate].animate-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      [data-animate][data-delay="100"] { transition-delay: 100ms; }
+      [data-animate][data-delay="150"] { transition-delay: 150ms; }
+      [data-animate][data-delay="200"] { transition-delay: 200ms; }
+      [data-animate][data-delay="300"] { transition-delay: 300ms; }
+      [data-animate][data-delay="400"] { transition-delay: 400ms; }
+      [data-animate][data-delay="500"] { transition-delay: 500ms; }
+      [data-animate][data-delay="600"] { transition-delay: 600ms; }
+    </style>
+  </body>
+</html>
+
+
+
