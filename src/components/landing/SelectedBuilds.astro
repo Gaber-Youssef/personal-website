@@ -20,7 +20,7 @@ import { SELECTED_BUILDS } from '../../config';
               <li class="text-xs px-2.5 py-1 rounded-md bg-brand-soft text-brand">{technology}</li>
             ))}
           </ul>
-          <a href={project.source} target="_blank" rel="noopener noreferrer" class="text-sm text-brand font-medium underline underline-offset-4" aria-label={`View ${project.title} on Upwork`}>
+          <a href={project.category.startsWith('PiperX') ? '/work/piperx/' : project.source} target={project.category.startsWith('PiperX') ? undefined : '_blank'} rel="noopener noreferrer" class="text-sm text-brand font-medium underline underline-offset-4" aria-label={project.category.startsWith('PiperX') ? 'Read the PiperX case study' : `View ${project.title} on Upwork`}>
             Project details →
           </a>
         </article>

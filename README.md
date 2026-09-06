@@ -61,3 +61,19 @@ especially Google Workspace MX, SPF, DKIM, DMARC, and domain verification record
 Preserve any other subdomains and services. Test both apex and www routing, HTTPS,
 blog navigation, RSS, sitemap, redirects, and a nonexistent route after cutover.
 Keep the previous Netlify project available until the new site is verified.
+
+## Case studies and discovery
+
+Case-study content lives in `src/data/case-studies.ts` and is rendered at
+`/work/piperx/`, `/work/fx1/`, and `/work/rosalyn/`. Keep personal contributions
+and outcomes grounded in confirmed project details. Homepage results link to
+these pages; company websites and the PiperX Upwork reference remain available.
+
+The default social preview is `public/og.png`; individual article images still
+override it. Google Search Console ownership is verified for `gaberyoussef.dev`
+and `https://gaberyoussef.dev/sitemap-index.xml` is submitted. New static pages
+are included in the generated sitemap automatically.
+
+Cloudflare Web Analytics is enabled using automatic injection for the domain.
+Do not add a duplicate analytics beacon in the source. Manage it in the existing
+Cloudflare account under Web Analytics → gaberyoussef.dev.

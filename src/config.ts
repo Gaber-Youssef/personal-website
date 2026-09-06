@@ -20,6 +20,7 @@ export const EXPERIENCES = [
   {
     role: 'Lead AI Architect',
     company: 'PiperX',
+    caseStudyUrl: '/work/piperx/',
     companyUrl: 'https://piperx.ai',
     period: '2024 - Present',
     outcome: 'Reduced analysis time from weeks to hours',
@@ -30,6 +31,7 @@ export const EXPERIENCES = [
   {
     role: 'Head of AI',
     company: 'FX1 Sports',
+    caseStudyUrl: '/work/fx1/',
     companyUrl: 'https://fx1.io',
     period: '2023 - 2024',
     outcome: 'From idea to $350K in Google startup support',
@@ -40,6 +42,7 @@ export const EXPERIENCES = [
   {
     role: 'Senior AI Engineer',
     company: 'Rosalyn.ai',
+    caseStudyUrl: '/work/rosalyn/',
     companyUrl: 'https://www.rosalyn.ai',
     period: '2021 - 2023',
     outcome: 'Scaled to 10K+ concurrent users',
