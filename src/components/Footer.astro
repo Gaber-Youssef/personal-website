@@ -3,8 +3,13 @@ import { PERSONAL } from '../config';
 const today = new Date();
 ---
 
-<footer class="footer footer-center block mb-5 pt-10">
-  <div class="pb-2 text-sm text-muted">
-    &copy; {today.getFullYear()} {PERSONAL.name}
+<footer class="border-t border-surface-light">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-7 text-sm text-muted sm:flex-row">
+    <p>&copy; {today.getFullYear()} {PERSONAL.name}</p>
+    <nav aria-label="Footer navigation" class="flex items-center gap-6">
+      <a href="/" class="transition-colors hover:text-brand">Home</a>
+      <a href="/#contact" class="transition-colors hover:text-brand">Contact</a>
+      <a href="/rss.xml" class="transition-colors hover:text-brand">RSS feed</a>
+    </nav>
   </div>
 </footer>

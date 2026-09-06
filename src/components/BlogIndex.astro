@@ -1,0 +1,73 @@
+---
+import type { Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import createSlug from '../lib/createSlug';
+import dayjs from 'dayjs';
+
+interface Props {
+  page: Page<CollectionEntry<'blog'>>;
+  tags: string[];
+  activeTag?: string;
+}
+
+const { page, tags, activeTag } = Astro.props;
+---
+
+<div class="blog-index mx-auto max-w-[960px] py-12 sm:py-16">
+  <header class="mb-8 sm:mb-9">
+    <div class="section-label">Writing</div>
+    <h1 class="text-4xl font-semibold leading-tight text-ink sm:text-5xl">Thoughts &amp; insights</h1>
+    <p class="mt-5 max-w-3xl text-lg text-muted">Notes from building AI systems: strategy, engineering, and lessons from production.</p>
+  </header>
+
+  <nav aria-label="Article topics" class="flex flex-wrap gap-2">
+    {[{ label: 'All articles', href: '/blog/', active: !activeTag }, ...tags.map(tag => ({ label: tag, href: `/blog/tag/${encodeURIComponent(tag)}/`, active: tag === activeTag }))].map(({ label, href, active }) => (
+      <a href={href} aria-current={active ? 'page' : undefined} class:list={[
+        'rounded-full border px-4 py-2 text-sm font-medium transition-colors',
+        active ? 'border-ink bg-ink text-white' : 'border-surface-light text-muted hover:border-brand/40 hover:text-brand'
+      ]}>{label}</a>
+    ))}
+  </nav>
+
+  <section aria-label={activeTag ? `${activeTag} articles` : 'All articles'} class="mt-8 sm:mt-9">
+    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-surface-light pb-4 text-sm text-muted">
+      <p>{activeTag ? `${activeTag} · ` : ''}{page.total} {page.total === 1 ? 'article' : 'articles'}</p>
+      <p>Latest first</p>
+    </div>
+    {page.data.length === 0 ? (
+      <p class="py-12 text-muted">No articles yet. Check back soon.</p>
+    ) : (
+      <div>
+        {page.data.map(post => {
+          const href = '/blog/' + createSlug(post.data.title, post.slug);
+          const readingTime = Math.max(1, Math.round(post.body.split(/\s+/).length / 200));
+          return (
+            <article class="grid gap-5 border-b border-surface-light py-8 sm:grid-cols-[140px_minmax(0,1fr)] sm:gap-10">
+              <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 text-sm text-muted sm:flex-col sm:pt-1">
+                <time datetime={dayjs(post.data.pubDate).format('YYYY-MM-DD')}>{dayjs(post.data.pubDate).format('MMM D, YYYY')}</time>
+                <span>{readingTime} min read</span>
+              </div>
+              <div class="min-w-0">
+                <h2 class="text-2xl font-semibold leading-snug text-ink sm:text-3xl">
+                  <a href={href} class="transition-colors hover:text-brand">{post.data.title}</a>
+                </h2>
+                <p class="mt-4 text-base leading-relaxed text-muted">{post.data.description}</p>
+                <a href={href} aria-label={`Read article: ${post.data.title}`} class="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand underline-offset-4 hover:underline">
+                  Read article <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    )}
+  </section>
+
+  {(page.url.prev || page.url.next) && (
+    <nav aria-label="Article pagination" class="mt-8 flex items-center justify-between gap-4 text-sm font-medium text-muted">
+      {page.url.prev && <a href={page.url.prev} rel="prev" class="hover:text-brand">← Newer articles</a>}
+      <span class="mx-auto">Page {page.currentPage} of {page.lastPage}</span>
+      {page.url.next && <a href={page.url.next} rel="next" class="hover:text-brand">Older articles →</a>}
+    </nav>
+  )}
+</div>

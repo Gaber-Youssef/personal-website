@@ -28,9 +28,9 @@ const {
   <body>
     <div class:list={["bg-base-100", { "drawer lg:drawer-open": includeSidebar }]}>
       {includeSidebar && <input id="my-drawer" type="checkbox" class="drawer-toggle" />}
-      <div class:list={["bg-base-100", { "drawer-content": includeSidebar }]}>
+      <div class:list={["bg-base-100 flex min-h-svh flex-col", { "drawer-content": includeSidebar }]}>
         <Header includeSidebar={includeSidebar} />
-        <div class="md:flex md:justify-center">
+        <div class="flex flex-1 justify-center">
           <main class:list={["w-full min-w-0 px-4 sm:px-6", wideContent ? "max-w-[1180px]" : "pt-10 lg:max-w-[900px] max-w-[100vw]"]}>
             <slot />
           </main>
