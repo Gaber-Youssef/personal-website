@@ -2,36 +2,36 @@
 import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
 ---
 
-<section class="min-h-screen flex items-center pt-20 pb-12 relative overflow-hidden">
-  <div class="section-container relative z-10 py-8">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+<section class="pt-28 pb-12 md:pt-32 md:pb-14 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center max-w-6xl mx-auto">
       
       <!-- Left: Content -->
-      <div class="order-2 lg:order-1 text-center lg:text-left">
+      <div class="hero-intro order-2 lg:order-1 text-center lg:text-left">
         
         <!-- Availability status -->
-        <div class="opacity-0 animate-fade-up" style="animation-delay: 0ms; animation-fill-mode: forwards;">
-          <div class="status-badge inline-flex mb-8">
+        <div>
+          <div class="status-badge inline-flex mb-6">
             <span class="status-dot"></span>
             <span class="text-muted-light">Currently accepting new clients</span>
           </div>
         </div>
 
         <!-- Main headline -->
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-hero font-display font-medium text-ink mb-6 opacity-0 animate-fade-up text-balance" style="animation-delay: 100ms; animation-fill-mode: forwards;">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-hero font-display font-medium text-ink mb-6 text-balance">
           Let's build AI systems
           <span class="block mt-2 emphasis-text">that actually work.</span>
         </h1>
 
         <!-- Value proposition -->
-        <p class="text-base sm:text-lg text-muted-light max-w-xl mx-auto lg:mx-0 mb-6 opacity-0 animate-fade-up leading-relaxed" style="animation-delay: 200ms; animation-fill-mode: forwards;">
+        <p class="text-base sm:text-lg text-muted-light max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed">
           I help ambitious companies implement AI that actually works — 
           from strategy through production. My experience spans enterprise teams in
           consumer goods, healthcare, and financial services, as well as high-growth startups.
         </p>
 
         <!-- Credentials -->
-        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 opacity-0 animate-fade-up" style="animation-delay: 300ms; animation-fill-mode: forwards;">
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
           {CREDENTIALS.map((cred) => (
             <div class="credential-badge text-xs">
               <span class="text-brand">✓</span>
@@ -41,7 +41,7 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
         </div>
 
         <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10 opacity-0 animate-fade-up" style="animation-delay: 400ms; animation-fill-mode: forwards;">
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
           <a 
             href={PERSONAL.callUrl}
             target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined}
@@ -62,7 +62,7 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
         </div>
 
         <!-- Key metrics -->
-        <div class="grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 opacity-0 animate-fade-up" style="animation-delay: 500ms; animation-fill-mode: forwards;">
+        <div class="grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
           {RESULTS.map((result) => (
             <div class="text-center lg:text-left">
               <div class="text-xl sm:text-2xl font-display font-medium text-ink">{result.metric}</div>
@@ -73,7 +73,7 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
       </div>
 
       <!-- Right: Photo - Clean and Centered -->
-      <div class="order-1 lg:order-2 flex justify-center opacity-0 animate-fade-up" style="animation-delay: 150ms; animation-fill-mode: forwards;">
+      <div class="hero-photo order-1 lg:order-2 flex justify-center">
         <div class="relative">
           
           <!-- Photo container - centered with rounded corners -->
@@ -104,14 +104,22 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
       </div>
     </div>
 
-    <!-- Scroll hint -->
-    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 animate-fade-up hidden md:block" style="animation-delay: 700ms; animation-fill-mode: forwards;">
-      <div class="flex flex-col items-center gap-2 text-muted">
-        <span class="text-xs uppercase tracking-widest">Discover more</span>
-        <svg class="w-4 h-4 animate-float" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-      </div>
-    </div>
+    <a href="#why-me" class="hidden md:flex items-center justify-center gap-2 mt-10 text-xs uppercase tracking-widest text-muted hover:text-brand transition-colors">
+      Discover more
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </a>
   </div>
 </section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-intro { animation: hero-enter 400ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .hero-photo { animation: hero-enter 400ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  }
+  @keyframes hero-enter {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

@@ -29,13 +29,12 @@ const icons = {
 
     <!-- Services grid -->
     <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-      {SERVICES.map((service, index) => {
+      {SERVICES.map((service) => {
 
         return (
           <div
             class="service-card group"
             data-animate
-            data-delay={String((index + 1) * 100)}
           >
             <!-- Icon -->
             <div class="w-14 h-14 rounded-xl bg-brand-soft border border-brand/15 flex items-center justify-center mb-6">
@@ -79,7 +78,7 @@ const icons = {
     </div>
 
     <!-- CTA -->
-    <div class="mt-12 text-center" data-animate data-delay="400">
+    <div class="mt-12 text-center" data-animate>
       <a href={PERSONAL.callUrl} target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined} rel="noopener noreferrer" class="text-brand hover:text-brand-light transition-colors text-sm">
         Let's discuss what works for you →
       </a>

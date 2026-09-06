@@ -18,17 +18,23 @@
 }
 
 @layer components {
-  .section-container { @apply max-w-6xl mx-auto px-6 py-24 md:py-32; }
-  .section-header { @apply text-center mb-16 md:mb-20; }
+  .section-container { @apply max-w-6xl mx-auto px-6 py-14 md:py-20; }
+  .section-header { @apply text-center mb-10 md:mb-12; }
+  .section-header-left { @apply text-left max-w-4xl mx-auto; }
+  .section-header-left .section-subtitle { @apply mx-0; }
+  .section-header-split { @apply text-left lg:grid lg:grid-cols-[1.2fr_1fr] lg:items-end lg:gap-x-16; }
+  .section-header-split .section-label { @apply lg:col-span-2; }
+  .section-header-split .section-title { @apply lg:mb-0; }
+  .section-header-split .section-subtitle { @apply mx-0; }
   .section-label {
-    @apply inline-block text-sm font-medium tracking-wide mb-6 text-brand;
+    @apply inline-block text-sm font-medium tracking-wide mb-4 text-brand;
   }
-  .section-title { @apply text-section font-display font-medium text-ink mb-5; }
+  .section-title { @apply text-3xl md:text-section font-display font-medium text-ink mb-4; }
   .section-subtitle { @apply text-lg text-muted max-w-2xl mx-auto leading-relaxed; }
 
   .card {
-    @apply relative rounded-2xl bg-surface border border-surface-light p-8
-           transition-all duration-200;
+    @apply relative rounded-2xl bg-surface border border-surface-light p-6 lg:p-8
+           transition-[border-color,box-shadow] duration-200;
   }
   .card:hover { @apply border-brand/30 shadow-card-hover; }
   .card-compact { @apply card p-6; }
@@ -69,7 +75,7 @@
     @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-surface-light text-sm;
   }
   .status-dot { @apply w-2 h-2 rounded-full bg-signal-success; }
-  .testimonial-card { @apply relative bg-surface border border-surface-light rounded-2xl p-8; }
+  .testimonial-card { @apply relative bg-surface border border-surface-light rounded-2xl p-6 lg:p-8; }
   .testimonial-card::before {
     content: '"';
     @apply absolute -top-4 left-6 text-8xl font-display text-brand/15 leading-none;

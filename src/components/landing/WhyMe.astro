@@ -34,11 +34,10 @@ const icons = {
 
     <!-- Expertise cards -->
     <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-      {EXPERTISE.map((item, index) => (
+      {EXPERTISE.map((item) => (
         <div 
           class="card group"
           data-animate
-          data-delay={String((index + 1) * 100)}
         >
           <div class="flex items-start gap-5">
             <div class="icon-container text-brand shrink-0 group-hover:border-brand/30 transition-colors">
@@ -58,7 +57,7 @@ const icons = {
     </div>
 
     <!-- Differentiator callout -->
-    <div class="mt-16 max-w-3xl mx-auto" data-animate data-delay="500">
+    <div class="mt-10 md:mt-12 max-w-3xl mx-auto" data-animate>
       <div class="relative bg-surface border border-surface-light rounded-2xl p-8 md:p-10">
         <div class="absolute top-0 left-8 w-px h-full bg-brand/20"></div>
         

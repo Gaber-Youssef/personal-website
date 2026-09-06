@@ -7,7 +7,7 @@ import { EXPERIENCES, CLIENT_INDUSTRIES } from '../../config';
   <div class="section-container relative z-10">
     
     <!-- Section header -->
-    <div class="section-header" data-animate>
+    <div class="section-header section-header-left" data-animate>
       <span class="section-label">Track Record</span>
       <h2 class="section-title">Results that speak for themselves.</h2>
       <p class="section-subtitle">
@@ -16,12 +16,11 @@ import { EXPERIENCES, CLIENT_INDUSTRIES } from '../../config';
     </div>
 
     <!-- Results timeline -->
-    <div class="max-w-4xl mx-auto space-y-8">
-      {EXPERIENCES.map((exp, index) => (
+    <div class="max-w-4xl mx-auto space-y-5 md:space-y-6">
+      {EXPERIENCES.map((exp) => (
         <div 
           class="timeline-card group"
           data-animate
-          data-delay={String((index + 1) * 100)}
         >
           <div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
             
@@ -67,13 +66,13 @@ import { EXPERIENCES, CLIENT_INDUSTRIES } from '../../config';
     </div>
 
     <!-- Client trust bar -->
-    <div class="mt-20 text-center" data-animate data-delay="500">
-      <p class="text-sm text-muted uppercase tracking-widest mb-8">
+    <div class="mt-10 md:mt-12 pt-8 border-t border-surface-light max-w-4xl mx-auto grid md:grid-cols-[10rem_1fr] gap-5 md:gap-8 items-start" data-animate>
+      <p class="text-xs text-muted uppercase tracking-widest leading-relaxed">
         Experience across industries
       </p>
-      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+      <div class="flex flex-wrap gap-x-6 gap-y-3">
         {CLIENT_INDUSTRIES.map((client) => (
-          <span class="client-logo">
+          <span class="text-sm text-muted font-medium">
             {client}
           </span>
         ))}
