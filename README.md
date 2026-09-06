@@ -42,8 +42,14 @@ Cloudflare Workers serves the static `dist/` output; no server adapter is requir
 - Deploy command: `npx wrangler deploy`
 - Build environment: Node 24 (`NODE_VERSION=24`), npm 11; use the committed lockfile.
 - Worker name: `gaber-youssef-personal-website`
-- `wrangler.jsonc` configures static assets and the custom 404 page.
+- Production URL: `https://gaberyoussef.dev`
+- Worker URL: `https://gaber-youssef-personal-website.gaber-b29.workers.dev`
+- `wrangler.jsonc` configures static assets, both custom domains, and the custom 404 page.
 - `public/_redirects` supplies HTTP redirects for legacy homepage section URLs.
+- Cloudflare's `Redirect www to gaberyoussef.dev` rule redirects the `www` host
+  permanently while preserving paths and query strings. Host-specific source URLs
+  are not supported in Workers' `_redirects` file.
+- Cloudflare's Always Use HTTPS setting redirects HTTP requests to HTTPS.
 
 To validate packaging locally, run `npm run deploy:preview` after a successful build.
 It is a dry run and does not publish. `npm run deploy` builds and publishes using an
