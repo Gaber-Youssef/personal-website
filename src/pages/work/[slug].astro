@@ -36,7 +36,7 @@ const next = CASE_STUDIES[(CASE_STUDIES.findIndex(item => item.slug === study.sl
           </ol>
         </section>
         <section aria-labelledby="outcome"><h2 id="outcome">The outcome</h2><p>{study.result}</p></section>
-        {'quote' in study && <blockquote><p>“{study.quote}”</p><cite>{study.quoteBy}</cite></blockquote>}
+        {'quote' in study && <blockquote><p>“{study.quote}”</p><cite>{study.quoteBy}</cite><a href={study.quoteSource} target="_blank" rel="noopener noreferrer" class="text-sm text-brand underline underline-offset-4 inline-block mt-3">Read the review on Upwork ↗</a></blockquote>}
       </article>
       <aside aria-label="Project summary">
         <div class="outcome-card">

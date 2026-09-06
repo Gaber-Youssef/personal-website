@@ -102,19 +102,38 @@ export const RESULTS = [
   { metric: '8+', label: 'Years in AI', sublabel: 'before ChatGPT made it cool' },
 ];
 
-// Testimonials
+// Review excerpts and ratings checked against the public Upwork work history, 6 September 2026.
+// Links open completed work history, with a contract text fragment where supported.
+const upworkReviewUrl = (project: string) =>
+  `${PERSONAL.upwork}#jobs_completed_desktop:~:text=${encodeURIComponent(project)}`;
+
 export const TESTIMONIALS = [
   {
-    quote: "We're going to miss Gaber. We had the pleasure of working with him for around six months, and I can't say enough about his skills, attitude, kindness, and willingness to do the work. Gaber is a leader in his field and has a bright future ahead of him. He won't let you down.",
+    quote: "I can't say enough about his skills, attitude, kindness, and willingness to do the work.",
     author: 'Trent Allan',
     company: 'COO & Co-Founder, FX1 Sports',
-    image: null,
+    project: 'Pose estimation & deepsort project',
+    year: '2024',
+    rating: '5.0',
+    source: upworkReviewUrl('Pose estimation & deepsort project'),
   },
   {
-    quote: "Gaber is one of those rare finds! He brings insight, best practices, and great communication to the table. He is able to think outside the box and down the road to foresee and mitigate any potential issues. We have been very impressed with all the work he has performed for us.",
+    quote: "He brings insight, best practices, and great communication to the table.",
     author: 'Richard Lusk',
     company: 'Founder, Richard Lusk Company',
-    image: null,
+    project: 'Looking for Machine Learning Engineer to build a Reverse Image Search Tool',
+    year: '2021',
+    rating: '5.0',
+    source: upworkReviewUrl('Looking for Machine Learning Engineer to build a Reverse Image Search Tool'),
+  },
+  {
+    quote: 'Gaber is an exceptional professional with deep expertise in Computer Vision and AI.',
+    author: 'Sports analytics client',
+    company: 'Pickleball / table tennis project',
+    project: 'AI/Computer Vision Developer Needed to Build MVP for Sports Analytics (Pickleball/Table Tennis)',
+    year: '2025',
+    rating: '5.0',
+    source: upworkReviewUrl('AI/Computer Vision Developer Needed to Build MVP for Sports Analytics (Pickleball/Table Tennis)'),
   },
 ];
 

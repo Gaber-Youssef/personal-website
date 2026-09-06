@@ -11,23 +11,29 @@ import { TESTIMONIALS, PERSONAL } from '../../config';
       <span class="section-label">Client Words</span>
       <h2 class="section-title">What they're saying.</h2>
       <p class="section-subtitle">
-        Hear from leaders I've partnered with.
+        Selected excerpts from client reviews on Upwork.
       </p>
     </div>
 
     <!-- Testimonials -->
-    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <div class="grid lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
       {TESTIMONIALS.map((testimonial) => (
         <div 
-          class="testimonial-card"
+          class="testimonial-card flex flex-col"
           data-animate
         >
-          <blockquote class="relative z-10">
-            <p class="text-lg text-muted-light leading-relaxed mb-6 italic">
+          <div class="flex items-center justify-between gap-3 mb-5 text-sm">
+            <span class="text-brand font-medium" aria-label={`${testimonial.rating} out of 5 on Upwork`}>
+              <span aria-hidden="true">★</span> {testimonial.rating} / 5
+            </span>
+            <span class="text-muted">Upwork · {testimonial.year}</span>
+          </div>
+          <blockquote class="relative z-10 flex flex-col flex-1">
+            <p class="text-lg text-muted-light leading-relaxed mb-6 italic flex-1">
               "{testimonial.quote}"
             </p>
             <footer class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-full bg-brand-soft flex items-center justify-center">
+              <div class="w-10 h-10 shrink-0 rounded-full bg-brand-soft flex items-center justify-center">
                 <span class="text-brand font-display font-medium text-lg">
                   {testimonial.author.charAt(0)}
                 </span>
@@ -38,6 +44,12 @@ import { TESTIMONIALS, PERSONAL } from '../../config';
               </div>
             </footer>
           </blockquote>
+          <div class="mt-6 pt-5 border-t border-surface-light">
+            <p class="text-sm text-muted mb-3 lg:min-h-[4.5rem]">{testimonial.project}</p>
+            <a href={testimonial.source} target="_blank" rel="noopener noreferrer" class="text-sm text-brand font-medium underline underline-offset-4" aria-label={`Read the review for ${testimonial.project} on Upwork`}>
+              Read review on Upwork ↗
+            </a>
+          </div>
         </div>
       ))}
     </div>
@@ -46,7 +58,7 @@ import { TESTIMONIALS, PERSONAL } from '../../config';
     <p class="mt-10 max-w-2xl mx-auto text-center text-sm text-muted" data-animate>
       Alongside my direct client work and company roles, I take on selected projects through Upwork,
       where I hold Expert-Vetted status and a 100% Job Success score.
-      <a href={PERSONAL.upwork} target="_blank" rel="noopener noreferrer" class="text-brand underline underline-offset-4">Read more client feedback on Upwork →</a>
+      <a href={`${PERSONAL.upwork}#jobs_completed_desktop`} target="_blank" rel="noopener noreferrer" class="text-brand underline underline-offset-4">Read more client feedback on Upwork →</a>
     </p>
 
     <!-- Simple process overview -->
@@ -56,7 +68,7 @@ import { TESTIMONIALS, PERSONAL } from '../../config';
       </h3>
       <div class="grid sm:grid-cols-3 gap-6">
         <div class="text-center">
-          <div class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-4">
+          <div class="w-10 h-10 shrink-0 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-4">
             <span class="text-brand font-display font-medium">1</span>
           </div>
           <h4 class="text-ink font-medium mb-2">Discovery Call</h4>
@@ -65,7 +77,7 @@ import { TESTIMONIALS, PERSONAL } from '../../config';
           </p>
         </div>
         <div class="text-center">
-          <div class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-4">
+          <div class="w-10 h-10 shrink-0 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-4">
             <span class="text-brand font-display font-medium">2</span>
           </div>
           <h4 class="text-ink font-medium mb-2">Proposal</h4>
@@ -74,7 +86,7 @@ import { TESTIMONIALS, PERSONAL } from '../../config';
           </p>
         </div>
         <div class="text-center">
-          <div class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-4">
+          <div class="w-10 h-10 shrink-0 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center mx-auto mb-4">
             <span class="text-brand font-display font-medium">3</span>
           </div>
           <h4 class="text-ink font-medium mb-2">Delivery</h4>

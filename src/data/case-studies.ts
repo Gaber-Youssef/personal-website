@@ -45,7 +45,8 @@ export const CASE_STUDIES = [
     ],
     result: 'FX1 was selected for Google’s startup program with $350K in startup support and fast-tracked into its “potential unicorn” cohort.',
     tags: ['AI product development', 'Sports analytics', 'Technical leadership'],
-    quote: 'Gaber is a leader in his field and has a bright future ahead of him. He won’t let you down.',
+    quote: "I can't say enough about his skills, attitude, kindness, and willingness to do the work.",
+    quoteSource: 'https://www.upwork.com/freelancers/gyoussef#jobs_completed_desktop:~:text=Pose%20estimation%20%26%20deepsort%20project',
     quoteBy: 'Trent Allan · COO & Co-Founder, FX1 Sports',
   },
   {
