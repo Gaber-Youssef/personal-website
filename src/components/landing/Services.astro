@@ -1,5 +1,5 @@
 ---
-import { SERVICES, PERSONAL } from '../../config';
+import { SERVICES, PERSONAL, COMPANY } from '../../config';
 
 const icons = {
   partnership: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,6 +82,10 @@ const icons = {
       <a href={PERSONAL.callUrl} target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined} rel="noopener noreferrer" class="text-brand hover:text-brand-light transition-colors text-sm">
         Let's discuss what works for you →
       </a>
+      <p class="mt-4 text-sm text-muted">
+        For more about my company's services,
+        <a href={COMPANY.url} target="_blank" rel="noopener noreferrer" class="text-brand underline underline-offset-4 hover:text-brand-light">explore {COMPANY.name} →</a>
+      </p>
     </div>
   </div>
 </section>

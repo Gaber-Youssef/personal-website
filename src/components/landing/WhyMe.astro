@@ -1,5 +1,5 @@
 ---
-import { EXPERTISE } from '../../config';
+import { EXPERTISE, COMPANY } from '../../config';
 
 // Icon mapping
 const icons = {
@@ -69,6 +69,10 @@ const icons = {
             Most AI consultants give you a strategy deck and wish you luck. I've been the Head of AI 
             at startups and the Lead Architect at global consultancies. I know what works in theory 
             <em class="text-ink">and</em> what survives contact with production.
+          </p>
+          <p class="text-muted-light leading-relaxed mb-6">
+            I run <a href={COMPANY.url} target="_blank" rel="noopener noreferrer" class="text-brand underline underline-offset-4 hover:text-brand-light">{COMPANY.name}</a>,
+            an AI engineering company focused on bringing AI systems into production—from agentic workflows to technical leadership.
           </p>
           <div class="flex flex-wrap gap-6 text-sm">
             <div class="flex items-center gap-2">

@@ -15,6 +15,12 @@ export const PERSONAL = {
   upwork: 'https://www.upwork.com/freelancers/gyoussef',
 };
 
+// Company owned by Gaber; personal project roles remain attributed individually.
+export const COMPANY = {
+  name: 'SixVectors',
+  url: 'https://sixvectors.ai/',
+};
+
 // Experience data - OUTCOME FOCUSED
 export const EXPERIENCES = [
   {

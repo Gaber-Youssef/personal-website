@@ -1,5 +1,5 @@
 ---
-import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
+import { PERSONAL, COMPANY, CREDENTIALS, RESULTS } from '../../config';
 ---
 
 <section class="pt-28 pb-12 md:pt-32 md:pb-14 relative overflow-hidden">
@@ -22,6 +22,12 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
           Let's build AI systems
           <span class="block mt-2 emphasis-text">that actually work.</span>
         </h1>
+
+        <p class="text-sm mb-5">
+          <a href={COMPANY.url} target="_blank" rel="noopener noreferrer" class="text-brand font-medium underline underline-offset-4 hover:text-brand-light">
+            Owner of {COMPANY.name}
+          </a>
+        </p>
 
         <!-- Value proposition -->
         <p class="text-base sm:text-lg text-muted-light max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed">
