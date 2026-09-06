@@ -2,42 +2,45 @@
 import { PERSONAL } from '../../config';
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-void/90 border-b border-carbon-light/50">
-  <div class="max-w-6xl mx-auto px-6">
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-canvas/90 border-b border-surface-light">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="flex items-center justify-between h-18">
       <!-- Name -->
       <a href="/" class="group">
-        <span class="font-display font-semibold text-lg text-cream group-hover:text-gold transition-colors">{PERSONAL.name}</span>
-        <span class="hidden sm:block text-xs text-stone">{PERSONAL.title}</span>
+        <span class="font-display font-semibold text-base sm:text-lg whitespace-nowrap text-ink group-hover:text-brand transition-colors">{PERSONAL.name}</span>
+        <span class="hidden sm:block text-xs text-muted">{PERSONAL.title}</span>
       </a>
 
       <!-- Navigation Links -->
-      <div class="hidden md:flex items-center gap-10">
-        <a href="#why-me" class="text-sm text-stone-light hover:text-gold transition-colors">How I Help</a>
-        <a href="#results" class="text-sm text-stone-light hover:text-gold transition-colors">Results</a>
-        <a href="#services" class="text-sm text-stone-light hover:text-gold transition-colors">Work Together</a>
-        <a href="#testimonials" class="text-sm text-stone-light hover:text-gold transition-colors">Testimonials</a>
+      <div class="hidden lg:flex items-center gap-10">
+        <a href="#why-me" class="text-sm text-muted-light hover:text-brand transition-colors">How I Help</a>
+        <a href="#results" class="text-sm text-muted-light hover:text-brand transition-colors">Results</a>
+        <a href="#services" class="text-sm text-muted-light hover:text-brand transition-colors">Work Together</a>
+        <a href="#testimonials" class="text-sm text-muted-light hover:text-brand transition-colors">Testimonials</a>
+        <a href="/blog" class="text-sm text-muted-light hover:text-brand transition-colors">Blog</a>
       </div>
 
       <!-- CTA Button -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 sm:gap-4">
         <a 
-          href={PERSONAL.calendarUrl} 
-          target="_blank"
+          href={PERSONAL.callUrl}
+          target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined}
           rel="noopener noreferrer"
-          class="btn-primary text-sm py-2.5 px-5"
+          class="btn-primary text-sm py-2.5 px-3 sm:px-5 whitespace-nowrap"
         >
           <span>Let's Talk</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="hidden sm:block w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
           </svg>
         </a>
 
         <!-- Mobile menu button -->
         <button 
-          class="md:hidden p-2 text-stone-light hover:text-gold transition-colors"
+          class="lg:hidden p-2 text-muted-light hover:text-brand transition-colors"
           id="mobile-menu-btn"
           aria-label="Toggle menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -48,20 +51,21 @@ import { PERSONAL } from '../../config';
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-carbon-light/50 bg-void/95 backdrop-blur-md">
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-surface-light bg-canvas/95 backdrop-blur-md">
     <div class="px-6 py-6 space-y-5">
-      <a href="#why-me" class="block text-stone-light hover:text-gold transition-colors">How I Help</a>
-      <a href="#results" class="block text-stone-light hover:text-gold transition-colors">Results</a>
-      <a href="#services" class="block text-stone-light hover:text-gold transition-colors">Work Together</a>
-      <a href="#testimonials" class="block text-stone-light hover:text-gold transition-colors">Testimonials</a>
-      <div class="pt-4 border-t border-carbon-light/50">
+      <a href="#why-me" class="block text-muted-light hover:text-brand transition-colors">How I Help</a>
+      <a href="#results" class="block text-muted-light hover:text-brand transition-colors">Results</a>
+      <a href="#services" class="block text-muted-light hover:text-brand transition-colors">Work Together</a>
+      <a href="#testimonials" class="block text-muted-light hover:text-brand transition-colors">Testimonials</a>
+      <a href="/blog" class="block text-muted-light hover:text-brand transition-colors">Blog</a>
+      <div class="pt-4 border-t border-surface-light">
         <a 
-          href={PERSONAL.calendarUrl}
-          target="_blank"
+          href={PERSONAL.callUrl}
+          target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined}
           rel="noopener noreferrer"
           class="btn-primary w-full justify-center text-sm"
         >
-          Book a Call
+          Arrange a Call
         </a>
       </div>
     </div>
@@ -69,17 +73,29 @@ import { PERSONAL } from '../../config';
 </nav>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  
-  btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-  });
+  function initMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu || btn.dataset.initialized) return;
+    btn.dataset.initialized = 'true';
 
-  // Close menu when clicking a link
-  menu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.add('hidden');
+    function setOpen(open: boolean) {
+      menu!.classList.toggle('hidden', !open);
+      btn!.setAttribute('aria-expanded', String(open));
+    }
+
+    btn.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => setOpen(false));
     });
-  });
+    menu.closest('nav')?.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+  }
+
+  initMenu();
+  document.addEventListener('astro:page-load', initMenu);
 </script>

@@ -41,14 +41,14 @@ const icons = {
           data-delay={String((index + 1) * 100)}
         >
           <div class="flex items-start gap-5">
-            <div class="icon-container text-gold shrink-0 group-hover:border-gold/30 transition-colors">
+            <div class="icon-container text-brand shrink-0 group-hover:border-brand/30 transition-colors">
               <Fragment set:html={icons[item.icon as keyof typeof icons]} />
             </div>
             <div>
-              <h3 class="text-xl font-display font-medium text-cream mb-3">
+              <h3 class="text-xl font-display font-medium text-ink mb-3">
                 {item.title}
               </h3>
-              <p class="text-stone-light leading-relaxed">
+              <p class="text-muted-light leading-relaxed">
                 {item.description}
               </p>
             </div>
@@ -59,30 +59,30 @@ const icons = {
 
     <!-- Differentiator callout -->
     <div class="mt-16 max-w-3xl mx-auto" data-animate data-delay="500">
-      <div class="relative bg-gradient-to-br from-carbon/80 to-carbon/40 border border-carbon-light/30 rounded-2xl p-8 md:p-10">
-        <div class="absolute top-0 left-8 w-px h-full bg-gradient-to-b from-gold/50 via-gold/20 to-transparent"></div>
+      <div class="relative bg-surface border border-surface-light rounded-2xl p-8 md:p-10">
+        <div class="absolute top-0 left-8 w-px h-full bg-brand/20"></div>
         
         <div class="pl-8">
-          <h3 class="text-xl md:text-2xl font-display font-medium text-cream mb-4">
+          <h3 class="text-xl md:text-2xl font-display font-medium text-ink mb-4">
             The difference? I've been here before.
           </h3>
-          <p class="text-stone-light leading-relaxed mb-6">
+          <p class="text-muted-light leading-relaxed mb-6">
             Most AI consultants give you a strategy deck and wish you luck. I've been the Head of AI 
             at startups and the Lead Architect at global consultancies. I know what works in theory 
-            <em class="text-cream">and</em> what survives contact with production.
+            <em class="text-ink">and</em> what survives contact with production.
           </p>
           <div class="flex flex-wrap gap-6 text-sm">
             <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
-              <span class="text-stone-light">Strategy that's actually implementable</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              <span class="text-muted-light">Strategy that's actually implementable</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
-              <span class="text-stone-light">Code you can hand to your team</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              <span class="text-muted-light">Code you can hand to your team</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
-              <span class="text-stone-light">Results you can measure</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              <span class="text-muted-light">Results you can measure</span>
             </div>
           </div>
         </div>

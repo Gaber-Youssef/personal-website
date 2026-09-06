@@ -1,87 +1,114 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import HorizontalCard from "../../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
-import createSlug from "../../lib/createSlug"
+import createSlug from "../../lib/createSlug";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
+dayjs.extend(localizedFormat);
 
 export async function getStaticPaths({ paginate }) {
   const posts = await getCollection("blog");
   posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-  return paginate(posts, { pageSize: 10 });
+  return paginate(posts, { pageSize: 12 });
 }
 
 const { page } = Astro.props;
+
+const allPosts = await getCollection("blog");
+const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
 ---
 
-<BaseLayout title="Blog" sideBarActiveItemID="blog">
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Blog</div>
-  </div>
+<BaseLayout title="Blog" sideBarActiveItemID="blog" includeSidebar={false}>
+  <div class="blog-index max-w-3xl mx-auto py-10 sm:py-16">
 
-  {
-    page.data.length === 0 ? (
-      <div class="bg-base-200 border-l-4 border-secondary w-full p-4 min-w-full">
-        <p class="font-bold">Sorry!</p>
-        <p>There are no blog posts to show at the moment. Check back later!</p>
+    <!-- Header -->
+    <div class="mb-12">
+      <div class="section-label mb-4">Writing</div>
+      <h1 class="text-4xl font-semibold text-ink tracking-tight mb-3">Thoughts & Insights</h1>
+      <p class="text-muted-light text-lg">On AI strategy, implementation, and what I'm learning along the way.</p>
+    </div>
+
+    <!-- Tag filters -->
+    {allTags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-10">
+        {allTags.map((tag) => (
+          <a
+            href={`/blog/tag/${tag}`}
+            class="px-3 py-1 rounded-full text-sm font-medium border border-surface-light text-muted-light hover:border-brand/40 hover:text-brand transition-colors"
+          >
+            {tag}
+          </a>
+        ))}
+      </div>
+    )}
+
+    <!-- Posts grid -->
+    {page.data.length === 0 ? (
+      <div class="text-center py-24 text-muted">
+        <p class="text-lg">No posts yet. Check back soon.</p>
       </div>
     ) : (
-      <ul>
-        {page.data.map((post) => (
-          <>
-            <HorizontalCard
-              title={post.data.title}
-              img={post.data.heroImage}
-              desc={post.data.description}
-              url={"/blog/" + createSlug(post.data.title, post.slug)}
-              target="_self"
-              badge={post.data.badge}
-              tags={post.data.tags}
-            />
-            <div class="divider my-0" />
-          </>
-        ))}
-      </ul>
-    )
-  }
+      <div class="grid grid-cols-1 gap-6">
+        {page.data.map((post) => {
+          const slug = "/blog/" + createSlug(post.data.title, post.slug);
+          const date = dayjs(post.data.pubDate).format("MMM D, YYYY");
+          return (
+            <a
+              href={slug}
+              class="group flex flex-col bg-surface rounded-2xl border border-surface-light p-6 sm:p-9 hover:border-brand/30 hover:bg-surface transition-all duration-300"
+            >
+              <time class="text-xs font-medium text-muted uppercase tracking-wider mb-3">{date}</time>
 
-  <div class="flex justify-between">
-    {
-      page.url.prev ? (
-        <a href={page.url.prev} class="btn btn-ghost my-10 mx-5">
-          {" "}
-          <svg
-            class="h-6 w-6 fill-current md:h-8 md:w-8"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
-          </svg>{" "}
-          Recent posts
+              <h2 class="text-2xl sm:text-3xl font-semibold text-ink leading-snug mb-2 group-hover:text-brand transition-colors duration-300">
+                {post.data.title}
+              </h2>
+
+              <p class="text-base text-muted-light leading-relaxed flex-1">
+                {post.data.description}
+              </p>
+
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5 mt-4">
+                  {post.data.tags.map((tag) => (
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-surface-light/30 text-muted border border-surface-light">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div class="mt-5 flex items-center gap-1 text-xs font-medium text-muted group-hover:text-brand transition-colors duration-300">
+                <span>Read article</span>
+                <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    )}
+
+    <!-- Pagination -->
+    <div class="flex justify-between mt-12">
+      {page.url.prev ? (
+        <a href={page.url.prev} class="flex items-center gap-2 px-4 py-2 rounded-lg border border-surface-light text-muted-light hover:border-brand/40 hover:text-brand transition-colors text-sm font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Newer
         </a>
-      ) : (
-        <div />
-      )
-    }
-    {
-      page.url.next ? (
-        <a href={page.url.next} class="btn btn-ghost my-10 mx-5">
-          Older Posts{" "}
-          <svg
-            class="h-6 w-6 fill-current md:h-8 md:w-8"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            {" "}
-            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+      ) : <div />}
+      {page.url.next ? (
+        <a href={page.url.next} class="flex items-center gap-2 px-4 py-2 rounded-lg border border-surface-light text-muted-light hover:border-brand/40 hover:text-brand transition-colors text-sm font-medium">
+          Older
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
-      ) : (
-        <div />
-      )
-    }
+      ) : <div />}
+    </div>
+
   </div>
 </BaseLayout>

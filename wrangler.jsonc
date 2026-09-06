@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gaber-youssef-personal-website",
+  "account_id": "b29389c5a6f7d21cd2b1d1640ac83661",
+  "compatibility_date": "2026-09-06",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

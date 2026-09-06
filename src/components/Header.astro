@@ -1,17 +1,17 @@
-<div
-  class="sticky lg:hidden top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content shadow-sm"
->
-  <div class="navbar">
-    <div class="navbar-start">
-      <label for="my-drawer" class="btn btn-square btn-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"
-          ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </label>
+---
+import { PERSONAL } from '../config';
+const { includeSidebar = false } = Astro.props;
+---
+<header class:list={['sticky top-0 z-30 border-b border-surface-light bg-canvas/95 backdrop-blur', { 'lg:hidden': includeSidebar }]}>
+  <nav aria-label="Main navigation" class="mx-auto flex min-h-[4.5rem] max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-3">
+    <a class="font-display text-base font-semibold text-ink hover:text-brand" href="/">{PERSONAL.name}</a>
+    <div class="flex items-center gap-5 text-sm text-muted-light">
+      <a href="/" class="hover:text-brand">Home</a>
+      <a href="/blog" class="hover:text-brand" aria-current={Astro.url.pathname.startsWith('/blog') ? 'page' : undefined}>Blog</a>
+      <a href="/#contact" class="hover:text-brand">Contact</a>
+      {includeSidebar && (
+        <label for="my-drawer" class="cursor-pointer text-brand">More</label>
+      )}
     </div>
-    <div class="navbar-center">
-      <a class="btn btn-ghost normal-case text-xl" href="/">Manuel Ernesto ⚡️</a>
-    </div>
-    <div class="navbar-end"></div>
-  </div>
-</div>
+  </nav>
+</header>

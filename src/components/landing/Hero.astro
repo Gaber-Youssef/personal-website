@@ -3,12 +3,6 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
 ---
 
 <section class="min-h-screen flex items-center pt-20 pb-12 relative overflow-hidden">
-  <!-- Ambient background -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gold/[0.04] rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-emerald/[0.02] rounded-full blur-3xl"></div>
-  </div>
-  
   <div class="section-container relative z-10 py-8">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
       
@@ -19,29 +13,29 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
         <div class="opacity-0 animate-fade-up" style="animation-delay: 0ms; animation-fill-mode: forwards;">
           <div class="status-badge inline-flex mb-8">
             <span class="status-dot"></span>
-            <span class="text-stone-light">Currently accepting new clients</span>
+            <span class="text-muted-light">Currently accepting new clients</span>
           </div>
         </div>
 
         <!-- Main headline -->
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-hero font-display font-medium text-cream mb-6 opacity-0 animate-fade-up text-balance" style="animation-delay: 100ms; animation-fill-mode: forwards;">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-hero font-display font-medium text-ink mb-6 opacity-0 animate-fade-up text-balance" style="animation-delay: 100ms; animation-fill-mode: forwards;">
           Let's build AI systems
-          <span class="block mt-2 gradient-text">that actually work.</span>
+          <span class="block mt-2 emphasis-text">that actually work.</span>
         </h1>
 
         <!-- Value proposition -->
-        <p class="text-base sm:text-lg text-stone-light max-w-xl mx-auto lg:mx-0 mb-6 opacity-0 animate-fade-up leading-relaxed" style="animation-delay: 200ms; animation-fill-mode: forwards;">
+        <p class="text-base sm:text-lg text-muted-light max-w-xl mx-auto lg:mx-0 mb-6 opacity-0 animate-fade-up leading-relaxed" style="animation-delay: 200ms; animation-fill-mode: forwards;">
           I help ambitious companies implement AI that actually works — 
-          from strategy through production. The same expertise shipped AI solutions for 
-          <span class="text-cream font-medium">APCO</span>, <span class="text-cream font-medium">Nestlé</span>, <span class="text-cream font-medium">Pfizer</span>, <span class="text-cream font-medium">Visa</span>, and <span class="text-cream font-medium">MarketScale</span>.
+          from strategy through production. My experience spans enterprise teams in
+          consumer goods, healthcare, and financial services, as well as high-growth startups.
         </p>
 
         <!-- Credentials -->
         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 opacity-0 animate-fade-up" style="animation-delay: 300ms; animation-fill-mode: forwards;">
           {CREDENTIALS.map((cred) => (
             <div class="credential-badge text-xs">
-              <span class="text-gold">✓</span>
-              <span class="text-stone-light">{cred.label}</span>
+              <span class="text-brand">✓</span>
+              <span class="text-muted-light">{cred.label}</span>
             </div>
           ))}
         </div>
@@ -49,12 +43,12 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10 opacity-0 animate-fade-up" style="animation-delay: 400ms; animation-fill-mode: forwards;">
           <a 
-            href={PERSONAL.calendarUrl}
-            target="_blank"
+            href={PERSONAL.callUrl}
+            target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined}
             rel="noopener noreferrer" 
             class="btn-primary text-base group"
           >
-            <span>Book a Strategy Call</span>
+            <span>Arrange a Strategy Call</span>
             <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
             </svg>
@@ -71,8 +65,8 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
         <div class="grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 opacity-0 animate-fade-up" style="animation-delay: 500ms; animation-fill-mode: forwards;">
           {RESULTS.map((result) => (
             <div class="text-center lg:text-left">
-              <div class="text-xl sm:text-2xl font-display font-medium text-cream">{result.metric}</div>
-              <div class="text-xs text-stone mt-0.5">{result.label}</div>
+              <div class="text-xl sm:text-2xl font-display font-medium text-ink">{result.metric}</div>
+              <div class="text-xs text-muted mt-0.5">{result.label}</div>
             </div>
           ))}
         </div>
@@ -81,11 +75,9 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
       <!-- Right: Photo - Clean and Centered -->
       <div class="order-1 lg:order-2 flex justify-center opacity-0 animate-fade-up" style="animation-delay: 150ms; animation-fill-mode: forwards;">
         <div class="relative">
-          <!-- Subtle glow behind -->
-          <div class="absolute -inset-4 bg-gradient-to-br from-gold/20 via-gold/5 to-transparent rounded-3xl blur-2xl opacity-60"></div>
           
           <!-- Photo container - centered with rounded corners -->
-          <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-2xl border border-gold/10">
+          <div class="relative w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-card border border-brand/10">
             <img 
               src="/gaber-headshot.jpg" 
               alt="Gaber Youssef - AI Strategy & Implementation Partner"
@@ -95,16 +87,16 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
           </div>
           
           <!-- Floating badge -->
-          <div class="absolute -bottom-4 -right-4 sm:-bottom-5 sm:-right-5 bg-carbon/95 backdrop-blur-sm border border-carbon-light/50 rounded-xl px-4 py-3 shadow-xl">
+          <div class="absolute -bottom-4 -right-4 sm:-bottom-5 sm:-right-5 bg-surface border border-surface-light rounded-xl px-4 py-3 shadow-soft">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 flex items-center justify-center">
-                <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="w-9 h-9 rounded-lg bg-brand-soft border border-brand/30 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                 </svg>
               </div>
               <div>
-                <div class="text-sm font-medium text-cream">Top 1%</div>
-                <div class="text-xs text-stone">Expert-Vetted</div>
+                <div class="text-sm font-medium text-ink">Top 1%</div>
+                <div class="text-xs text-muted">Expert-Vetted</div>
               </div>
             </div>
           </div>
@@ -114,7 +106,7 @@ import { PERSONAL, CREDENTIALS, RESULTS } from '../../config';
 
     <!-- Scroll hint -->
     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 animate-fade-up hidden md:block" style="animation-delay: 700ms; animation-fill-mode: forwards;">
-      <div class="flex flex-col items-center gap-2 text-stone">
+      <div class="flex flex-col items-center gap-2 text-muted">
         <span class="text-xs uppercase tracking-widest">Discover more</span>
         <svg class="w-4 h-4 animate-float" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>

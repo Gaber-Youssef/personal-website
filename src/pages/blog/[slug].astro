@@ -2,23 +2,34 @@
 import { CollectionEntry, getCollection } from "astro:content";
 import { BlogSchema } from "../../content/config";
 import PostLayout from "../../layouts/PostLayout.astro";
-import createSlug from "../../lib/createSlug"
+import createSlug from "../../lib/createSlug";
 
 export async function getStaticPaths() {
   const postEntries = await getCollection("blog");
-  return postEntries.map((entry) => ({
+  const sorted = postEntries.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  return sorted.map((entry, index) => ({
     params: { slug: createSlug(entry.data.title, entry.slug) },
-    props: { entry },
+    props: {
+      entry,
+      prevPost: sorted[index + 1] ?? null,
+      nextPost: sorted[index - 1] ?? null,
+    },
   }));
 }
 
 interface Props {
   entry: CollectionEntry<"blog">;
+  prevPost: CollectionEntry<"blog"> | null;
+  nextPost: CollectionEntry<"blog"> | null;
 }
 
-const { entry } = Astro.props;
+const { entry, prevPost, nextPost } = Astro.props;
 const post: BlogSchema = entry.data;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
+
+const words = entry.body.split(/\s+/).length;
+const readingTime = Math.max(1, Math.round(words / 200));
 ---
 
 <PostLayout
@@ -29,6 +40,10 @@ const { Content } = await entry.render();
   updatedDate={post.updatedDate}
   badge={post.badge}
   tags={post.tags}
+  readingTime={readingTime}
+  headings={headings.filter((heading) => heading.depth === 2)}
+  prevPost={prevPost ? { title: prevPost.data.title, slug: createSlug(prevPost.data.title, prevPost.slug) } : null}
+  nextPost={nextPost ? { title: nextPost.data.title, slug: createSlug(nextPost.data.title, nextPost.slug) } : null}
 >
   <Content />
 </PostLayout>

@@ -39,3 +39,5 @@ Thumbs.db
 # package managers
 .pnpm-store/
 .venv/
+.wrangler/
+work/

@@ -1,43 +1,76 @@
 ---
-import { type BlogSchema } from "../content/config";
-import BaseLayout from "./BaseLayout.astro";
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
+import { type BlogSchema } from '../content/config';
+import BaseLayout from './BaseLayout.astro';
+import { PERSONAL } from '../config';
+import dayjs from 'dayjs';
 
-export interface Props extends BlogSchema {}
-
-const { title, description, pubDate, updatedDate, heroImage, badge, tags = [] } = Astro.props;
-dayjs.extend(localizedFormat);
-const displayDate = dayjs(pubDate).format("ll")
-import { Image } from "astro:assets";
+export interface Props extends BlogSchema {
+  readingTime?: number;
+  headings?: { text: string; slug: string; depth: number }[];
+  prevPost?: { title: string; slug: string } | null;
+  nextPost?: { title: string; slug: string } | null;
+}
+const { title, description, pubDate, updatedDate, heroImage, badge, tags = [], readingTime, headings = [], prevPost, nextPost } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} image={heroImage}, ogType="article">
-  <main class="md:flex md:justify-center">
-    <article class="prose prose-lg max-w-[750px] prose-img:mx-auto">
-      {heroImage && <Image width={750} height={422} format="webp" src={heroImage} alt={title} class="w-full mb-6" />}
-      <h1 class="title my-2 text-4xl font-bold">{title}</h1>
-      {pubDate && <time>{displayDate}</time>}
-      <br />
-      {badge && <div class="badge badge-secondary my-1">{badge}</div>}
-      {
-        tags &&
-          tags.map((tag) => (
-            <a href={`/blog/tag/${tag}`} class="badge badge-outline ml-2 no-underline">
-              {tag}
-            </a>
-          ))
-      }
-      {
-        updatedDate && (
-          <div>
-            {" "}
-            Last updated on <time>{updatedDate}</time>{" "}
+<BaseLayout title={title} description={description} image={heroImage} ogType="article" includeSidebar={false} wideContent>
+  <div class="editorial-post py-10 sm:py-16">
+    <header class="post-header">
+      <a href="/blog" class="text-sm text-muted hover:text-brand inline-block mb-8">← All writing</a>
+      <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold tracking-wide text-brand mb-5">
+        {badge && <span>{badge}</span>}
+        {tags.map(tag => <a href={`/blog/tag/${encodeURIComponent(tag)}`} class="hover:underline underline-offset-4">{tag}</a>)}
+      </div>
+      <h1>{title}</h1>
+      <p class="post-deck">{description}</p>
+      <div class="flex flex-wrap items-center gap-4 mt-8 pb-8 border-b border-surface-light">
+        <img src="/gaber-headshot.jpg" alt="" width="44" height="44" class="w-11 h-11 rounded-full object-cover" />
+        <div>
+          <a href="/" class="text-sm font-semibold text-ink hover:text-brand">{PERSONAL.name}</a>
+          <p class="text-xs text-muted mt-1">{PERSONAL.title}</p>
+        </div>
+        <div class="post-dates text-xs text-muted">
+          <p><time datetime={dayjs(pubDate).format('YYYY-MM-DD')}>{dayjs(pubDate).format('MMMM D, YYYY')}</time>{readingTime && <> · {readingTime} min read</>}</p>
+          {updatedDate && <p class="mt-1">Updated <time datetime={dayjs(updatedDate).format('YYYY-MM-DD')}>{dayjs(updatedDate).format('MMMM D, YYYY')}</time></p>}
+        </div>
+      </div>
+    </header>
+
+    <div class="post-grid mt-10 sm:mt-12">
+      <aside class="post-contents">
+        {headings.length > 0 && (
+          <details open class="contents-panel">
+            <summary class="text-xs font-semibold uppercase tracking-widest text-muted cursor-pointer">In this article</summary>
+            <nav aria-label="Article sections" class="mt-5">
+              <ol class="space-y-4">
+                {headings.map((heading, index) => (
+                  <li><a href={`#${heading.slug}`} class="flex gap-3 text-sm text-muted hover:text-brand leading-relaxed"><span class="text-brand text-xs pt-0.5" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span>{heading.text.split(':')[0]}</span></a></li>
+                ))}
+              </ol>
+            </nav>
+          </details>
+        )}
+      </aside>
+
+      <div class="min-w-0">
+        <article class="prose max-w-none article-prose">
+          <slot />
+        </article>
+        <footer class="mt-14 pt-8 border-t border-surface-light">
+          <p class="text-sm text-muted mb-4">Working through a similar challenge?</p>
+          <div class="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <a href={PERSONAL.callUrl} target={PERSONAL.callUrl.startsWith('https:') ? '_blank' : undefined} rel="noopener noreferrer" class="font-semibold text-brand hover:underline underline-offset-4">Arrange a conversation →</a>
+            <a href={PERSONAL.linkedIn} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-brand">LinkedIn</a>
+            <a href={`mailto:${PERSONAL.email}`} class="text-muted hover:text-brand">Email</a>
           </div>
-        )
-      }
-      <div class="divider my-2"></div>
-      <slot />
-    </article>
-  </main>
+        </footer>
+        {(prevPost || nextPost) && (
+          <nav aria-label="More articles" class="grid sm:grid-cols-2 gap-4 mt-10">
+            {prevPost && <a href={`/blog/${prevPost.slug}`} class="p-5 rounded-xl border border-surface-light hover:border-brand"><span class="block text-xs text-muted mb-2">← Older post</span><span class="text-sm text-ink">{prevPost.title}</span></a>}
+            {nextPost && <a href={`/blog/${nextPost.slug}`} class="p-5 rounded-xl border border-surface-light hover:border-brand"><span class="block text-xs text-muted mb-2">Newer post →</span><span class="text-sm text-ink">{nextPost.title}</span></a>}
+          </nav>
+        )}
+      </div>
+    </div>
+  </div>
 </BaseLayout>

@@ -4,47 +4,48 @@ import { PERSONAL } from '../../config';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-carbon-light/30 bg-carbon/30">
+<footer class="border-t border-surface-light bg-surface">
   <div class="max-w-6xl mx-auto px-6 py-16">
     <div class="grid md:grid-cols-3 gap-12 md:gap-8 mb-12">
       
       <!-- Brand -->
       <div>
         <div class="mb-4">
-          <span class="font-display font-semibold text-lg text-cream">{PERSONAL.name}</span>
-          <span class="block text-xs text-stone mt-1">{PERSONAL.title}</span>
+          <span class="font-display font-semibold text-lg text-ink">{PERSONAL.name}</span>
+          <span class="block text-xs text-muted mt-1">{PERSONAL.title}</span>
         </div>
-        <p class="text-sm text-stone-light leading-relaxed max-w-xs">
+        <p class="text-sm text-muted-light leading-relaxed max-w-xs">
           Helping ambitious companies turn AI from a buzzword into measurable business value.
         </p>
       </div>
 
       <!-- Quick links -->
       <div>
-        <h4 class="text-sm font-medium text-cream mb-4">Navigate</h4>
+        <h4 class="text-sm font-medium text-ink mb-4">Navigate</h4>
         <div class="space-y-3">
-          <a href="#why-me" class="block text-sm text-stone-light hover:text-gold transition-colors">How I Help</a>
-          <a href="#results" class="block text-sm text-stone-light hover:text-gold transition-colors">Results</a>
-          <a href="#services" class="block text-sm text-stone-light hover:text-gold transition-colors">Work Together</a>
-          <a href="#testimonials" class="block text-sm text-stone-light hover:text-gold transition-colors">Testimonials</a>
+          <a href="#why-me" class="block text-sm text-muted-light hover:text-brand transition-colors">How I Help</a>
+          <a href="#results" class="block text-sm text-muted-light hover:text-brand transition-colors">Results</a>
+          <a href="#services" class="block text-sm text-muted-light hover:text-brand transition-colors">Work Together</a>
+          <a href="#testimonials" class="block text-sm text-muted-light hover:text-brand transition-colors">Testimonials</a>
+          <a href="/blog" class="block text-sm text-muted-light hover:text-brand transition-colors">Blog</a>
         </div>
       </div>
 
       <!-- Contact -->
       <div>
-        <h4 class="text-sm font-medium text-cream mb-4">Get in Touch</h4>
+        <h4 class="text-sm font-medium text-ink mb-4">Get in Touch</h4>
         <div class="space-y-3">
           <a 
-            href={PERSONAL.calendarUrl}
-            target="_blank"
+            href={PERSONAL.callUrl}
+            target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined}
             rel="noopener noreferrer"
-            class="block text-sm text-gold hover:text-gold-light transition-colors"
+            class="block text-sm text-brand hover:text-brand-light transition-colors"
           >
-            Book a Call →
+            Arrange a Call →
           </a>
           <a 
             href={`mailto:${PERSONAL.email}`}
-            class="block text-sm text-stone-light hover:text-gold transition-colors"
+            class="block text-sm text-muted-light hover:text-brand transition-colors"
           >
             {PERSONAL.email}
           </a>
@@ -53,7 +54,7 @@ const currentYear = new Date().getFullYear();
               href={PERSONAL.linkedIn}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-stone hover:text-gold transition-colors"
+              class="text-muted hover:text-brand transition-colors"
               aria-label="LinkedIn"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -64,7 +65,7 @@ const currentYear = new Date().getFullYear();
               href={PERSONAL.upwork}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-stone hover:text-gold transition-colors"
+              class="text-muted hover:text-brand transition-colors"
               aria-label="Upwork"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -77,8 +78,8 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Bottom bar -->
-    <div class="pt-8 border-t border-carbon-light/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-sm text-stone">
+    <div class="pt-8 border-t border-surface-light flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-muted">
         © {currentYear} {PERSONAL.name}. All rights reserved.
       </p>
     </div>

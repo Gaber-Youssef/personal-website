@@ -1,6 +1,6 @@
 // Site configuration
 export const SITE_TITLE = 'Gaber Youssef | AI Strategy & Implementation Partner';
-export const SITE_DESCRIPTION = 'I help ambitious companies turn AI from a buzzword into a competitive advantage. From strategy to production — I\'ve delivered transformational AI solutions for Nestlé, Pfizer, Visa, and high-growth startups.';
+export const SITE_DESCRIPTION = 'I help companies turn AI strategy into production systems, with experience across consumer goods, healthcare, financial services, and high-growth startups.';
 export const GENERATE_SLUG_FROM_TITLE = true;
 export const TRANSITION_API = true;
 
@@ -10,7 +10,7 @@ export const PERSONAL = {
   title: 'Principal AI Architect (Hands-on)',
   tagline: 'Your Fractional Head of AI',
   email: 'contact@gaberyoussef.dev',
-  calendarUrl: 'https://calendar.app.google/u9yrecNiKv1KFThAA',
+  callUrl: 'mailto:contact@gaberyoussef.dev?subject=Arrange%20a%20strategy%20call',
   linkedIn: 'https://linkedin.com/in/gaberyoussef',
   upwork: 'https://www.upwork.com/freelancers/gyoussef',
 };
@@ -19,29 +19,32 @@ export const PERSONAL = {
 export const EXPERIENCES = [
   {
     role: 'Lead AI Architect',
-    company: 'APCO Worldwide',
+    company: 'PiperX',
+    companyUrl: 'https://piperx.ai',
     period: '2024 - Present',
     outcome: 'Reduced analysis time from weeks to hours',
-    story: 'Created an AI platform that automates complex data analysis for Fortune 500 clients including McDonald\'s, Visa, and major pharma companies.',
+    story: 'Created an AI platform that automates complex data analysis for enterprise teams across consumer goods, financial services, and healthcare.',
     metric: '10x',
     metricLabel: 'faster insights',
   },
   {
     role: 'Head of AI',
     company: 'FX1 Sports',
+    companyUrl: 'https://fx1.io',
     period: '2023 - 2024',
-    outcome: 'From idea to $350K Google grant',
-    story: 'Took the founder\'s concept and built the AI product that got FX1 selected for Google\'s Start-up Program with a $350K grant — and fast-tracked into their elite "potential unicorn" cohort.',
+    outcome: 'From idea to $350K in Google startup support',
+    story: 'Took the founder\'s concept and built the AI product that got FX1 selected for Google\'s Start-up Program with $350K in startup support — and fast-tracked into their elite "potential unicorn" cohort.',
     metric: '$350K',
-    metricLabel: 'Google grant',
+    metricLabel: 'Google startup support',
   },
   {
     role: 'Senior AI Engineer',
     company: 'Rosalyn.ai',
+    companyUrl: 'https://www.rosalyn.ai',
     period: '2021 - 2023',
-    outcome: 'Scaled to 100K+ concurrent users',
+    outcome: 'Scaled to 10K+ concurrent users',
     story: 'Engineered the AI backbone for an exam proctoring platform used by major universities and certification bodies worldwide.',
-    metric: '100K+',
+    metric: '10K+',
     metricLabel: 'users at scale',
   },
 ];
@@ -60,7 +63,6 @@ export const SERVICES = [
       'Flexible commitment that scales',
     ],
     ideal: 'Series A+ startups building AI-first products',
-    color: 'gold',
   },
   {
     title: 'Full Build',
@@ -74,7 +76,6 @@ export const SERVICES = [
       'Ongoing support available',
     ],
     ideal: 'Companies with a clear AI use case ready to execute',
-    color: 'emerald',
   },
   {
     title: 'AI Audit',
@@ -88,7 +89,6 @@ export const SERVICES = [
       'Quick wins identified',
     ],
     ideal: 'Teams spending too much on AI with diminishing returns',
-    color: 'copper',
   },
 ];
 
@@ -118,13 +118,13 @@ export const TESTIMONIALS = [
 // What I help with (not "tech stack")
 export const EXPERTISE = [
   {
-    title: 'Intelligent Automation',
-    description: 'AI agents that handle complex workflows — from customer support to data analysis — so your team can focus on high-value work.',
+    title: 'Multimodal AI Agents',
+    description: 'Combine language models and computer vision in workflows that interpret documents, images, and video, then coordinate tools and specialist agents.',
     icon: 'automation',
   },
   {
     title: 'Computer Vision',
-    description: 'Systems that see and understand: quality control, real-time monitoring, document processing, and visual analytics.',
+    description: 'Video analytics with object tracking, pose estimation, and action recognition — turning footage into performance insights, monitoring, and searchable information.',
     icon: 'vision',
   },
   {
@@ -134,16 +134,49 @@ export const EXPERTISE = [
   },
   {
     title: 'Production Scale',
-    description: 'Taking AI from impressive demo to reliable production system that performs under real-world conditions.',
+    description: 'Bring AI into production with persistent memory, retrieval, telemetry, and cloud infrastructure that supports real workflows and ongoing operations.',
     icon: 'scale',
   },
 ];
 
-// Client logos/names for social proof
-export const CLIENTS = ['APCO', 'Nestlé', 'Pfizer', 'Visa', 'MarketScale'];
+// Industry descriptions preserve confidentiality across engagements.
+export const CLIENT_INDUSTRIES = [
+  'Consumer goods',
+  'Healthcare',
+  'Financial services',
+  'Strategic communications & public affairs',
+  'Sports technology & analytics',
+  'Education technology & assessment',
+  'B2B media & content marketing',
+];
 
 // Credentials - brief, trust-building
 export const CREDENTIALS = [
   { label: 'MSc Artificial Intelligence', detail: 'University of Bath' },
   { label: 'Expert-Vetted', detail: 'Top 1% on Upwork' },
+];
+
+// Portfolio descriptions reviewed on Upwork on 6 September 2026.
+export const SELECTED_BUILDS = [
+  {
+    title: 'Visual workflows into working AI agents',
+    category: 'PiperX · Workflow platform',
+    description: 'Led the architecture and hands-on build of PiperX’s intelligence layer. The engine turns visual graphs into runnable multi-agent workflows, with guardrails, agent coordination, and tool access through a custom MCP server and catalog.',
+    technologies: ['Multi-agent orchestration', 'MCP', 'Python'],
+    source: 'https://www.upwork.com/freelancers/gyoussef?p=2072046233172054016',
+  },
+  {
+    title: 'One video, multiple content formats',
+    category: 'Content production',
+    description: 'Built a LangGraph supervisor that routes requests to specialist agents for podcasts, clips, images, video, and written content. Live progress updates, downloadable assets, and organization-scoped sessions connect the AI workflow to the product experience.',
+    technologies: ['LangGraph', 'Gemini', 'PostgreSQL'],
+    source: 'https://www.upwork.com/freelancers/gyoussef?p=2072058438256955392',
+  },
+  {
+    title: 'From match footage to performance insights',
+    category: 'Sports analytics',
+    description: 'Built a pickleball video analytics pipeline that tracks players, paddles, and the ball, classifies strokes, and generates ball-speed estimates and court heatmaps. Combined object detection, pose estimation, and calibrated court geometry.',
+    technologies: ['PyTorch', 'OpenCV', 'YOLO'],
+    source: 'https://www.upwork.com/freelancers/gyoussef?p=2072265012422270976',
+  },
 ];

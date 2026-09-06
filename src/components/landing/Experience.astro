@@ -1,10 +1,8 @@
 ---
-import { EXPERIENCES, CLIENTS } from '../../config';
+import { EXPERIENCES, CLIENT_INDUSTRIES } from '../../config';
 ---
 
 <section id="results" class="relative">
-  <!-- Subtle background accent -->
-  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-carbon/20 to-transparent pointer-events-none"></div>
   
   <div class="section-container relative z-10">
     
@@ -30,26 +28,37 @@ import { EXPERIENCES, CLIENTS } from '../../config';
             <!-- Metric highlight -->
             <div class="lg:w-40 shrink-0 text-center lg:text-left">
               <div class="timeline-metric">{exp.metric}</div>
-              <div class="text-sm text-stone uppercase tracking-wide">{exp.metricLabel}</div>
+              <div class="text-sm text-muted uppercase tracking-wide">{exp.metricLabel}</div>
             </div>
 
             <!-- Content -->
             <div class="flex-1">
               <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-                <h3 class="text-xl font-display font-medium text-cream">
+                <h3 class="text-xl font-display font-medium text-ink">
                   {exp.outcome}
                 </h3>
-                <div class="flex items-center gap-2 text-sm text-stone">
-                  <span class="text-gold font-medium">{exp.company}</span>
+                <div class="flex items-center gap-2 text-sm text-muted">
+                  {exp.companyUrl ? (
+                    <a
+                      href={exp.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-brand font-medium underline underline-offset-4 hover:text-brand-light"
+                    >
+                      {exp.company}
+                    </a>
+                  ) : (
+                    <span class="text-brand font-medium">{exp.company}</span>
+                  )}
                   <span>·</span>
                   <span>{exp.period}</span>
                 </div>
               </div>
-              <p class="text-stone-light leading-relaxed">
+              <p class="text-muted-light leading-relaxed">
                 {exp.story}
               </p>
-              <div class="mt-3 text-sm text-stone">
-                Role: <span class="text-stone-light">{exp.role}</span>
+              <div class="mt-3 text-sm text-muted">
+                Role: <span class="text-muted-light">{exp.role}</span>
               </div>
             </div>
           </div>
@@ -59,11 +68,11 @@ import { EXPERIENCES, CLIENTS } from '../../config';
 
     <!-- Client trust bar -->
     <div class="mt-20 text-center" data-animate data-delay="500">
-      <p class="text-sm text-stone uppercase tracking-widest mb-8">
-        Trusted by teams at
+      <p class="text-sm text-muted uppercase tracking-widest mb-8">
+        Experience across industries
       </p>
       <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-        {CLIENTS.map((client) => (
+        {CLIENT_INDUSTRIES.map((client) => (
           <span class="client-logo">
             {client}
           </span>

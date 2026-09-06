@@ -1,0 +1,78 @@
+---
+const stages = [
+  { title: 'Propose', owner: 'Agent / model', description: 'Suggest an action from the current task and observations.' },
+  { title: 'Validate', owner: 'Application policy', description: 'Check permission, destination, arguments, and scope.' },
+  { title: 'Execute', owner: 'Constrained tools', description: 'Run only the action that passed validation.' },
+  { title: 'Evaluate', owner: 'Evaluation & audit', description: 'Record the outcome, attempted actions, and failures.' },
+];
+const scenarios = [
+  {
+    title: 'An allowed action',
+    path: 'Propose → Validate → Execute → Evaluate',
+    description: 'The proposal matches the permitted action and arguments. The executor runs that validated action, and the evaluator records the result.',
+  },
+  {
+    title: 'An unauthorized destination',
+    path: 'Propose → Validate → Block & record',
+    description: 'An incoming message asks the agent to forward unrelated mail to an external address. If policy rejects that destination or scope, execution stops and the attempted action is recorded.',
+  },
+  {
+    title: 'A tool timeout',
+    path: 'Propose → Validate → Execute → Inspect outcome',
+    description: 'A timeout can leave the outcome unknown. Check whether the action completed before retrying, so a transient failure does not produce a duplicate message or action.',
+  },
+];
+---
+
+<figure class="not-prose workflow my-8 rounded-2xl border border-surface-light bg-surface p-5 sm:p-7" aria-labelledby="workflow-caption">
+  <figcaption id="workflow-caption" class="mb-6">
+    <span class="block text-xs font-semibold uppercase tracking-wider text-brand mb-2">Proposed architecture</span>
+    <span class="block text-xl font-semibold text-ink">From a model proposal to an authorized action</span>
+    <span class="block mt-2 text-sm text-muted">Policy validation sits outside the model. Failed checks stop execution or request review.</span>
+  </figcaption>
+
+  <ol class="stages grid gap-6 sm:grid-cols-2">
+    {stages.map((stage, index) => (
+      <li class="relative rounded-xl border border-surface-light bg-canvas p-4">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand text-white text-sm" aria-hidden="true">{index + 1}</span>
+          <strong class="text-ink">{stage.title}</strong>
+        </div>
+        <p class="text-xs font-medium text-brand mb-2">{stage.owner}</p>
+        <p class="text-sm text-body-copy">{stage.description}</p>
+      </li>
+    ))}
+  </ol>
+
+  <div class="mt-7 border-t border-surface-light pt-6">
+    <p class="font-semibold text-ink mb-2">Explore three possible paths</p>
+    <p class="text-sm text-muted mb-4">Illustrative scenarios for this design, not measured results from these projects.</p>
+    <div class="space-y-3">
+      {scenarios.map((scenario) => (
+        <details class="rounded-xl border border-surface-light bg-canvas">
+          <summary class="cursor-pointer p-4 text-sm font-medium text-ink">{scenario.title}</summary>
+          <div class="px-4 pb-4 text-sm">
+            <p class="text-brand font-medium mb-3">{scenario.path}</p>
+            <p class="text-body-copy">{scenario.description}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</figure>
+
+<style>
+  .workflow { overflow-wrap: anywhere; }
+  .stages { list-style: none; padding: 0; }
+  .stages li:not(:last-child)::after {
+    content: '↓'; position: absolute; bottom: -1.5rem; left: 50%;
+    color: #566278; line-height: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .stages li:not(:last-child)::after { content: none; }
+    .stages li:nth-child(odd)::after {
+      content: '→'; left: auto; right: -1.5rem; top: 50%; bottom: auto; width: 1.5rem;
+      text-align: center;
+    }
+  }
+</style>

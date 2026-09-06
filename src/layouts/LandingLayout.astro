@@ -17,56 +17,65 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <BaseHead title={title} description={description} image={image} />
     {TRANSITION_API && <ViewTransitions />}
   </head>
   <body class="min-h-screen">
-    <!-- Noise overlay for texture -->
-    <div class="noise-overlay" aria-hidden="true"></div>
     
     <!-- Main content -->
     <slot />
     
     <!-- Smooth scroll and intersection observer for animations -->
     <script>
-      // Intersection Observer for scroll animations
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
+      let observer: IntersectionObserver | undefined;
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
+      function initAnimations() {
+        observer?.disconnect();
+        const elements = document.querySelectorAll('[data-animate]');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+            !('IntersectionObserver' in window)) return;
 
-      // Observe all elements with data-animate attribute
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('[data-animate]').forEach(el => {
-          observer.observe(el);
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('animate-pending');
+              observer?.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        elements.forEach(el => {
+          el.classList.add('animate-pending');
+          observer?.observe(el);
         });
-      });
+      }
+
+      initAnimations();
+      document.addEventListener('astro:page-load', initAnimations);
+      document.addEventListener('astro:before-swap', () => observer?.disconnect());
     </script>
     
     <style is:global>
       /* Animation states */
       [data-animate] {
-        opacity: 0;
-        transform: translateY(24px);
+        opacity: 1;
+        transform: translateY(0);
         transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
                     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
-      [data-animate].animate-in {
-        opacity: 1;
-        transform: translateY(0);
+      [data-animate].animate-pending {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        [data-animate].animate-pending {
+          opacity: 1;
+          transform: none;
+        }
       }
 
       [data-animate][data-delay="100"] { transition-delay: 100ms; }

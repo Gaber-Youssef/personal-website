@@ -1,0 +1,129 @@
+---
+title: "Building Adversarially Robust Agentic Systems in 2026: Lessons from TraderBench, Nemotron 3 Super, and OpenClaw"
+description: "A practical approach to evaluating agent failures, choosing a reasoning model, and constraining tool execution, with lessons from TraderBench, Nemotron 3 Super, and OpenClaw."
+pubDate: "Mar 17 2026"
+updatedDate: "Sep 6 2026"
+tags: ["Agentic AI", "AI Engineering", "MLOps"]
+---
+
+import AgentWorkflow from '../../components/blog/AgentWorkflow.astro';
+
+Imagine a trading assistant that confidently acts on corrupted market data, or an email assistant that mistakes instructions inside an incoming message for permission to forward private information. These are illustrative failure scenarios, not accounts of incidents I have investigated.
+
+A convincing demonstration tells us little about how an agent behaves when its inputs become unreliable or its tools fail. Before connecting an agent to consequential actions, I want to understand three things: how we measure failure, how the model behaves on the task, and what limits its authority.
+
+TraderBench, NVIDIA's Nemotron 3 Super, and OpenClaw offer useful perspectives on those questions. The architecture proposed here is an engineering approach to evaluate, not a claim that I have benchmarked this exact combination or that these projects guarantee robustness.
+
+<aside class="not-prose my-10 rounded-2xl border border-surface-light bg-brand-soft p-5 sm:p-7" aria-label="Key ideas">
+  <p class="text-sm font-semibold text-brand mb-3">Three questions to ask before deployment</p>
+  <ul class="space-y-3 text-base text-body-copy">
+    <li><strong class="text-ink">Evaluation:</strong> What happens when inputs are misleading or tools fail?</li>
+    <li><strong class="text-ink">Reasoning:</strong> How does the model perform on your actual task?</li>
+    <li><strong class="text-ink">Authority:</strong> Which actions can application code permit or block?</li>
+  </ul>
+</aside>
+
+## TraderBench: Evaluate the Decisions, Not Just the Answers
+
+The [TraderBench paper](https://openreview.net/pdf/8ee88e7680c8d51cb8779fdbe77c7dd1689ad0d9.pdf) describes four equally weighted sections: Knowledge Retrieval, Analytical Reasoning, Options Trading, and Crypto Trading. Its evaluation separates an agent that performs tasks from an evaluator through the A2A protocol.
+
+The [project repository](https://github.com/yxc20089/TraderBench) documents an optional crypto track with baseline, noisy, adversarial, and meta-consistency scenarios. It also describes configurations that use LLM judging and weighted scores across different tasks. Scores and reproducibility depend on the enabled tracks and their configuration. Pin the code revision, dataset, model, seeds, and evaluation configuration when reporting a result.
+
+### What I would take into a production evaluation
+
+Start with the decisions your application is permitted to make. A support agent and a trading simulator need different definitions of success. For each, measure task completion alongside invalid actions, unauthorized tool requests, latency, cost, and recovery after a tool failure.
+
+My proposed evaluation sequence is:
+
+1. Establish a baseline on representative tasks with a fixed model and tool configuration.
+2. Change one condition at a time: missing fields, stale records, contradictory documents, or instructions embedded in untrusted content.
+3. Record both the final outcome and the actions attempted along the way. A correct answer does not excuse an unauthorized intermediate action.
+4. Repeat runs and report their spread. A single successful run is weak evidence for a system with variable outputs.
+5. Keep a held-out set of failures and rerun it before promoting a model, prompt, or tool change.
+
+For a financial simulation, include execution costs and exposure constraints in the evaluator. Do not infer live trading performance from a benchmark score. There is no universal percentage drop to expect under adversarial inputs; measure it for the task and configuration you actually use.
+
+The following is **illustrative pseudocode**, not a TraderBench API or a ready-to-run trading agent. The interfaces represent application components you would need to implement and test:
+
+```python
+def evaluate_case(case, agent, policy, simulator):
+    # The simulator has no live credentials or external side effects.
+    proposal = agent.propose(case.observation)
+    decision = policy.validate(proposal, case.allowed_actions)
+
+    if not decision.allowed:
+        return {"status": "blocked", "reason": decision.reason}
+
+    outcome = simulator.execute(decision.validated_action)
+    return {
+        "status": "simulated",
+        "task_score": case.score(outcome),
+        "tool_errors": outcome.tool_errors,
+    }
+```
+
+Keep policy validation outside the model. In this design, model output proposes an action; application code checks its type, arguments, destination, and authorization before execution. Tune policies and models offline against recorded cases instead of updating a live policy from a single reward signal.
+
+## Nemotron 3 Super: A Candidate Reasoning Model
+
+[NVIDIA's release page](https://research.nvidia.com/labs/nemotron/Nemotron-3-Super/) describes Nemotron 3 Super as a hybrid Mamba-Transformer mixture-of-experts model with approximately 120 billion total parameters and 12 billion active parameters. It supports up to one million tokens of context and incorporates LatentMoE, multi-token prediction, and NVFP4 pretraining.
+
+NVIDIA reports up to 2.2× the inference throughput of GPT-OSS-120B and 7.5× that of Qwen3.5-122B for an 8K-input/64K-output setting. Those are specific reported comparisons, not a general speedup for every workload or proof of resistance to adversarial inputs.
+
+The published BF16 checkpoint is [`nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16`](https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16). Use the model card's supported serving instructions and hardware requirements when evaluating it. A short generic training loop would omit the infrastructure and distributed-training decisions needed for a model of this size.
+
+### Separate efficiency from robustness
+
+My recommendation is to evaluate a candidate model under the constraints of the application: input length, tool schemas, latency budget, and permitted actions. A long context window can accommodate more material, but it does not establish that the model will distinguish trusted instructions from malicious text within that material.
+
+Compare a baseline against any proposed fine-tuning or inference change using the same held-out tasks. Report the measured change in outcomes, failure rates, latency, and cost. Any claimed robustness improvement needs results from that experiment.
+
+For an initial deployment, I would favor a smaller, well-understood operating scope over assuming that a larger model or more reasoning automatically makes broad tool access acceptable.
+
+## OpenClaw: Configure the Execution Boundary
+
+OpenClaw can connect an assistant to tools and channels. Its [sandboxing documentation](https://docs.openclaw.ai/gateway/sandboxing) states that sandboxing is off by default. When enabled, it can isolate tool execution; the Gateway itself stays on the host. Sandbox mode, workspace access, mounts, and elevated execution affect what the agent can reach.
+
+A sandbox limits execution authority. It does not guarantee that a model will recognize a malicious request or prevent misuse of an action that the application deliberately allows. Review the separate [security guidance](https://docs.openclaw.ai/gateway/security) when deciding which tools and channels to expose. Local hosting alone is not evidence that data never leaves the machine: model providers, connected services, and outbound tool requests must be considered in the deployment design.
+
+### Use the documented installation path
+
+Follow the current [OpenClaw installation guide](https://docs.openclaw.ai/install) for your operating system and Node/npm version.
+
+After installation and onboarding, these documented diagnostic commands check the CLI, configuration, and Gateway status:
+
+```bash
+openclaw --version
+openclaw doctor
+openclaw gateway status
+```
+
+They do not prove that an agent is safely configured. Separately verify sandbox behavior, permitted tools, credentials, and outbound destinations with disposable test data.
+
+### Test the boundaries with realistic failures
+
+For an email assistant, I would begin with read-only access and a small test mailbox. Introduce a message that asks the assistant to forward unrelated mail to an external address. Check whether it attempts the action, whether the authorization layer blocks it, and whether that attempt appears in the audit record.
+
+Then test an allowed action: does the system bind approval to the exact recipient and content, or can the proposal change after approval? Also test timeouts and retries so a transient failure cannot silently send a duplicate message.
+
+Splitting work among specialist agents may help organize a system, but it introduces more handoffs. Treat it as an architectural choice to measure, not a guaranteed improvement in security or task performance.
+
+## Bringing the Layers Together
+
+<AgentWorkflow />
+
+<div class="overflow-x-auto" tabindex="0" role="region" aria-label="Comparison of evaluation, reasoning, and execution layers">
+
+| Layer | Candidate | What to establish before relying on it |
+|---|---|---|
+| Evaluation | TraderBench and application-specific cases | Pinned configuration, relevant outcomes, repeated runs, and documented limitations |
+| Reasoning | Nemotron 3 Super | Task quality, tool-call reliability, latency, and cost on the intended workload |
+| Execution | OpenClaw | Explicit permissions, tested sandbox configuration, and observable tool outcomes |
+
+</div>
+
+The proposed flow is straightforward: an agent forms a proposal, application policy validates it, a constrained executor performs the authorized action, and an evaluator records the result. Failed checks should stop the action or request review, with enough context to diagnose what happened.
+
+Start with one bounded workflow. Add more authority only after the evaluation shows how the system behaves when inputs are misleading, dependencies fail, and users ask for actions outside its scope. Robustness is demonstrated through those tests and operational controls; it is not conferred by a model name or framework choice.
+
+If you are working through similar questions, [get in touch](/#contact).

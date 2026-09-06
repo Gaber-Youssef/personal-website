@@ -2,23 +2,18 @@
 import { PERSONAL } from '../../config';
 ---
 
-<section id="contact" class="relative overflow-hidden">
-  <!-- Premium gradient background -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-radial from-gold/[0.08] via-gold/[0.02] to-transparent rounded-full blur-3xl"></div>
-  </div>
-
+<section id="contact" class="relative overflow-hidden bg-brand-soft border-y border-surface-light">
   <div class="section-container relative z-10">
     <div class="max-w-3xl mx-auto text-center" data-animate>
       
       <!-- Availability -->
       <div class="status-badge mx-auto mb-10">
         <span class="status-dot"></span>
-        <span class="text-stone-light">Taking on new projects</span>
+        <span class="text-muted-light">Taking on new projects</span>
       </div>
 
       <!-- Photo -->
-      <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-gold/30 mx-auto mb-8 shadow-lg">
+      <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-brand/30 mx-auto mb-8 shadow-lg">
         <img 
           src="/gaber-headshot.jpg" 
           alt="Gaber Youssef"
@@ -28,13 +23,13 @@ import { PERSONAL } from '../../config';
       </div>
 
       <!-- Headline -->
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-medium text-cream mb-6 text-balance">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-medium text-ink mb-6 text-balance">
         Ready to make AI work
-        <span class="block gradient-text mt-1">for your business?</span>
+        <span class="block emphasis-text mt-1">for your business?</span>
       </h2>
 
       <!-- Subheading -->
-      <p class="text-lg text-stone-light mb-10 max-w-xl mx-auto leading-relaxed">
+      <p class="text-lg text-muted-light mb-10 max-w-xl mx-auto leading-relaxed">
         Let's have an honest conversation about your goals. 
         I'll tell you what's realistic, what it takes, and whether I'm the right fit.
       </p>
@@ -42,15 +37,15 @@ import { PERSONAL } from '../../config';
       <!-- CTA buttons -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
         <a 
-          href={PERSONAL.calendarUrl}
-          target="_blank"
+          href={PERSONAL.callUrl}
+          target={PERSONAL.callUrl.startsWith("https:") ? "_blank" : undefined}
           rel="noopener noreferrer"
           class="btn-primary text-lg px-10 py-4 group"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
           </svg>
-          <span>Book a Free Call</span>
+          <span>Arrange a Free Call</span>
         </a>
         <a 
           href={`mailto:${PERSONAL.email}`}
@@ -64,7 +59,7 @@ import { PERSONAL } from '../../config';
       </div>
 
       <!-- Quick response note -->
-      <p class="text-sm text-stone mb-12">
+      <p class="text-sm text-muted mb-12">
         I respond to all inquiries within 24 hours.
       </p>
 
